@@ -1,0 +1,86 @@
+version: 1
+task_definition:
+  ecs_network_mode: bridge
+  task_role_arn: ecsTaskExecutionRole
+  task_execution_role: ecsTaskExecutionRole
+  task_size:
+    cpu_limit: 512
+    mem_limit: 4GB
+  services:
+    rabbitmq:
+      cpu_shares: 64
+      mem_limit: 256MB
+      secrets:
+        - value_from: RABBITMQ_DEFAULT_VHOST
+          name: RABBITMQ_DEFAULT_VHOST            
+    memcached:
+      cpu_shares: 64
+      mem_limit: 256MB
+    awx_web:
+      cpu_shares: 128
+      mem_limit: 1GB
+      secrets:
+        - value_from: SECRET_KEY
+          name: SECRET_KEY
+        - value_from: DATABASE_USER
+          name: DATABASE_USER
+        - value_from: DATABASE_PASSWORD
+          name: DATABASE_PASSWORD
+        - value_from: DATABASE_NAME
+          name: DATABASE_NAME
+        - value_from: DATABASE_PORT
+          name: DATABASE_PORT
+        - value_from: DATABASE_HOST
+          name: DATABASE_HOST
+        - value_from: RABBITMQ_USER
+          name: RABBITMQ_USER
+        - value_from: RABBITMQ_PASSWORD
+          name: RABBITMQ_PASSWORD
+        - value_from: RABBITMQ_HOST
+          name: RABBITMQ_HOST
+        - value_from: RABBITMQ_PORT
+          name: RABBITMQ_PORT
+        - value_from: RABBITMQ_VHOST
+          name: RABBITMQ_VHOST
+        - value_from: MEMCACHED_HOST
+          name: MEMCACHED_HOST
+        - value_from: MEMCACHED_PORT
+          name: MEMCACHED_PORT
+        - value_from: AWX_ADMIN_USER
+          name: AWX_ADMIN_USER                                                                      
+        - value_from: AWX_ADMIN_PASSWORD
+          name: AWX_ADMIN_PASSWORD 
+    awx_task:
+      cpu_shares: 128
+      mem_limit: 2GB
+      secrets:
+        - value_from: SECRET_KEY
+          name: SECRET_KEY
+        - value_from: DATABASE_USER
+          name: DATABASE_USER
+        - value_from: DATABASE_PASSWORD
+          name: DATABASE_PASSWORD
+        - value_from: DATABASE_NAME
+          name: DATABASE_NAME
+        - value_from: DATABASE_PORT
+          name: DATABASE_PORT
+        - value_from: DATABASE_HOST
+          name: DATABASE_HOST
+        - value_from: RABBITMQ_USER
+          name: RABBITMQ_USER
+        - value_from: RABBITMQ_PASSWORD
+          name: RABBITMQ_PASSWORD
+        - value_from: RABBITMQ_HOST
+          name: RABBITMQ_HOST
+        - value_from: RABBITMQ_PORT
+          name: RABBITMQ_PORT
+        - value_from: RABBITMQ_VHOST
+          name: RABBITMQ_VHOST
+        - value_from: MEMCACHED_HOST
+          name: MEMCACHED_HOST
+        - value_from: MEMCACHED_PORT
+          name: MEMCACHED_PORT
+        - value_from: AWX_ADMIN_USER
+          name: AWX_ADMIN_USER                                                                      
+        - value_from: AWX_ADMIN_PASSWORD
+          name: AWX_ADMIN_PASSWORD

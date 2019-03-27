@@ -28,5 +28,3 @@ Please make sure to update tests as appropriate.
 
 ## License
 [OpenBSD](https://www.openbsd.org/policy.html)
-# ecs
-# ecs

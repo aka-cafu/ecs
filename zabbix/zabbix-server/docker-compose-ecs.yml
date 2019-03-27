@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:ubuntu-4.0-latest
+    ports:
+      - 10051:10051
+    volumes:
+      - vp-ecs-zbxserver-alertscripts:/usr/lib/zabbix/alertscripts
+      - vp-ecs-zbxserver-externalscripts:/usr/lib/zabbix/externalscripts
+      - vp-ecs-zbxserver-modules:/var/lib/zabbix/modules
+      - vp-ecs-zbxserver-snmptraps:/var/lib/zabbix/snmptraps
+volumes:
+  vp-ecs-zbxserver-alertscripts:
+  vp-ecs-zbxserver-externalscripts:
+  vp-ecs-zbxserver-modules:
+  vp-ecs-zbxserver-snmptraps:

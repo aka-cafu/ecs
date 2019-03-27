@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  ecsexporter:
+    image: slok/ecs-exporter:latest
+    command: -aws.region="sa-east-1" 
+    ports:
+      - 0:9222
+    logging:
+      driver: fluentd
+      options: 
+        fluentd-address: localhost:24224
+        tag: ecs-exporter.metrics

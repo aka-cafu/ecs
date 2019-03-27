@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  grafana:
+    image: grafana/grafana:5.2.2
+    env_file:
+      - grafana.configs
+    ports:
+      - 0:3000
+    logging:
+      driver: fluentd
+      options: 
+        fluentd-address: localhost:24224
+        tag: grafana.logs

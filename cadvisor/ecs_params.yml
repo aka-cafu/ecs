@@ -1,0 +1,10 @@
+version: 1
+task_definition:
+  task_size:
+    cpu_limit: 256
+    mem_limit: 0.5GB
+  services:
+    cadvisor:
+      cpu_shares: 128
+      mem_limit: 128MB
+  task_execution_role: ecsTaskExecutionRole

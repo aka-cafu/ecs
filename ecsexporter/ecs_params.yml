@@ -1,0 +1,10 @@
+version: 1
+task_definition:
+  task_size:
+    cpu_limit: 128
+    mem_limit: 0.5GB
+  services:
+    ecsexporter:
+      cpu_shares: 128
+      mem_limit: 256MB
+  task_execution_role: ecsTaskExecutionRole

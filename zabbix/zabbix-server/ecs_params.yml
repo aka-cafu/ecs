@@ -1,0 +1,63 @@
+version: 1
+task_definition:
+  ecs_network_mode: bridge
+  task_role_arn: ecsTaskExecutionRole
+  task_execution_role: ecsTaskExecutionRole
+  task_size:
+    cpu_limit: 256
+    mem_limit: 0.5GB
+  services:
+    zabbix-server:
+      cpu_shares: 256
+      mem_limit: 512MB
+      secrets:
+        - value_from: DB_SERVER_HOST
+          name: DB_SERVER_HOST
+        - value_from: DB_SERVER_PORT
+          name: DB_SERVER_PORT
+        - value_from: POSTGRES_USER
+          name: POSTGRES_USER
+        - value_from: POSTGRES_PASSWORD
+          name: POSTGRES_PASSWORD
+        - value_from: POSTGRES_DB
+          name: POSTGRES_DB
+        - value_from: ZBX_CACHESIZE
+          name: ZBX_CACHESIZE
+  docker_volumes:
+      - name: vp-ecs-zbxserver-alertscripts
+        scope: shared
+        autoprovision: true
+        driver: rexray/ebs:latest
+        driver_opts: 
+           size: 1
+        labels:
+           Env: environment
+      - name: vp-ecs-zbxserver-externalscripts
+        scope: shared
+        autoprovision: true        
+        driver: rexray/ebs:latest
+        driver_opts: 
+           size: 1
+        labels:
+           Env: prd
+      - name: vp-ecs-zbxserver-modules
+        scope: shared
+        autoprovision: true        
+        driver: rexray/ebs:latest
+        driver_opts: 
+           size: 2
+        labels:
+           Env: environment
+      - name: vp-ecs-zbxserver-snmptraps
+        scope: shared
+        autoprovision: true        
+        driver: rexray/ebs:latest
+        driver_opts: 
+           size: 1
+        labels:
+           Env: environment
+run_params:
+  task_placement:
+    constraints:
+      - type: memberOf
+        expression: attribute:ecs.availability-zone == sa-east-1x

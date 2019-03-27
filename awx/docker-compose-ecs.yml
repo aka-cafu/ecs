@@ -1,0 +1,22 @@
+version: '3'
+services:
+  rabbitmq:
+    image: "rabbitmq:3"
+
+  memcached:
+    image: "memcached:alpine"
+
+  awx_web:
+    image: "ansible/awx_web:latest"
+    links:
+      - rabbitmq
+      - memcached
+    ports:
+      - "0:8052"
+
+  awx:
+    image: "ansible/awx_task:latest"
+    links:
+      - rabbitmq
+      - memcached
+      - awx_web:awxweb

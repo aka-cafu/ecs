@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql:ubuntu-4.0-latest
+    ports: 
+      - 80:80
+      - 443:443
+    volumes:
+      - vp-ecs-zbxserver-certificates:/etc/ssl/nginx
+volumes:
+  vp-ecs-zbxserver-certificates:
